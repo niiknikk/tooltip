@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tooltip</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+
+            font-family: 'Roboto', sans-serif;
+        }
+        .container{
+            position: relative;
+            background-color:#eee;
+            padding: 0 10px;
+            border: 2px dotted #bb91e4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .tooltip img{
+            width: 22px;
+            padding-left: 10px;
+            cursor: pointer;
+            position: relative;
+            z-index: 3;
+        }
+        .text{
+            position: relative;
+            color: #333;
+        }
+        .tooltip-text-hover,
+        .tooltip-text-click {
+            position: absolute;
+            width: 100px;
+            text-align: center;
+            background-color: #bb91e4;
+            border-radius: 6px;
+            color: #fff;
+            padding: 4px;   
+            top: -220%;
+            left: 46%;
+            
+            opacity: 0;
+            transition: .3s;
+        }
+        .tooltip-text-hover::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            /* margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #bb91e4 ; */
+
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 5px 0 5px;
+            border-color: #bb91e4 transparent transparent transparent;
+        }
+        .tooltip-text-click::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            /* margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #bb91e4 ; */
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 5px 0 5px;
+            border-color: #bb91e4 transparent transparent transparent;
+        }
+        .tooltip:hover + .tooltip-text-hover{
+            visibility: visible;
+            opacity: 1;
+        }
+        .show .tooltip-text-click{
+            visibility: visible;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- <p class="text">DENTPEES15<span class="tooltip"><img src="./icons8-copy-50.png" id="tooltip-click" alt=""></span></p> -->
+        <span class="text">DENTPEES15</span><span class="tooltip"><img src="./icons8-copy-50.png" id="tooltip-click" alt=""></span>
+        <p class="tooltip-text-hover">Copy Code</p>
+        <p class="tooltip-text-click" id="tooltip">Copied</p>
+    </div>
+
+    <script>
+        const tooltipContainer = document.querySelector('.container');
+        const tooltip = document.getElementById('tooltip');
+        const tooltipClick = document.getElementById('tooltip-click');
+
+        tooltipClick.addEventListener('click', (e) => {
+            e.preventDefault();
+            tooltipContainer.classList.toggle('show');
+           
+        })
+        window.addEventListener('click', (e) =>{
+            console.log(e.target.id);
+            if(e.target.id !== 'tooltip-click'){
+                tooltipContainer.classList.remove('show');
+            }
+        })
+    </script>
+</body>
+</html>
